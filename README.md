@@ -50,7 +50,7 @@ SkDYBYVCQ29nvDuRMBjdqpRA5xQ0MOTUVJcco9c=
 
 
 ### 遇到的问题
-1、只测试了在ubuntu平台上，在windows上测试连接部署在虚拟机上的区块链网络时，报错"user not found",暂无解决方法
-2、报错"Description: dialing connection on target [peer0.org1.example.com:7051]: connection is in TRANSIENT_FAILURE"
+#### 1、只测试了在ubuntu平台上，在windows上测试连接部署在虚拟机上的区块链网络时，报错"user not found",暂无解决方法
+#### 2、报错"Description: dialing connection on target [peer0.org1.example.com:7051]: connection is in TRANSIENT_FAILURE"
   解决：参考https://stackoverflow.com/questions/50051193/hyper-fabric-fabric-sdk-go-error-connection-failed-description-dialing-conn
   虽然报错不太一样，但是解决办法是一样的，修改"entityMatchers"下的属性
