@@ -65,7 +65,7 @@ client:
 
   # Root of the MSP directories with keys and certs.
   cryptoconfig:
-    path: /home/www/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config
+    path: ${GOPATH}/src/github.com/hyperledger/fabric-samples/first-network/crypto-config
 
   # Some SDKs support pluggable KV stores, the properties under "credentialStore"
   # are implementation specific
@@ -224,7 +224,7 @@ orderers:
 
     tlsCACerts:
       # Certificate location absolute path
-      path: /home/www/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
+      path: ${GOPATH}/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
 
 #
 # List of peers to send various requests to, including endorsement, query
@@ -251,7 +251,7 @@ peers:
 
     tlsCACerts:
       # Certificate location absolute path
-      path: /home/www/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+      path: ${GOPATH}/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
 
   peer1.org1.example.com:
     # this URL is used to send endorsement and query requests
@@ -272,7 +272,7 @@ peers:
 
     tlsCACerts:
       # Certificate location absolute path
-      path: /home/www/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+      path: ${GOPATH}/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
 
 
   peer0.org2.example.com:
@@ -291,7 +291,7 @@ peers:
       allow-insecure: false
 
     tlsCACerts:
-      path: /home/www/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
+      path: ${GOPATH}/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
 
   peer1.org2.example.com:
 #    url: peer0.org2.example.com:9051
@@ -309,7 +309,7 @@ peers:
       allow-insecure: false
 
     tlsCACerts:
-      path: /home/www/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
+      path: ${GOPATH}/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
 
 #
 # Fabric-CA is a special kind of Certificate Authority provided by Hyperledger Fabric which allows
@@ -322,13 +322,13 @@ peers:
 #    url: https://ca.org1.example.com:7054
 #    tlsCACerts:
 #      # Comma-Separated list of paths
-#      path: /home/www/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+#      path: ${GOPATH}/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
 #      # Client key and cert for SSL handshake with Fabric CA
 #      client:
 #        key:
-#          path: /home/www/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/tls.example.com/users/User1@tls.example.com/tls/client.key
+#          path: ${GOPATH}/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/tls.example.com/users/User1@tls.example.com/tls/client.key
 #        cert:
-#          path: /home/www/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/tls.example.com/users/User1@tls.example.com/tls/client.crt
+#          path: ${GOPATH}/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/tls.example.com/users/User1@tls.example.com/tls/client.crt
 #
 #    # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
 #    # needed to enroll and invoke new users.
@@ -341,13 +341,13 @@ peers:
 #    url: https://ca.org2.example.com:8054
 #    tlsCACerts:
 #      # Comma-Separated list of paths
-#      path: /home/www/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
+#      path: ${GOPATH}/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
 #      # Client key and cert for SSL handshake with Fabric CA
 #      client:
 #        key:
-#          path: /home/www/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/tls.example.com/users/User1@tls.example.com/tls/client.key
+#          path: ${GOPATH}/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/tls.example.com/users/User1@tls.example.com/tls/client.key
 #        cert:
-#          path: /home/www/go/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/tls.example.com/users/User1@tls.example.com/tls/client.crt
+#          path: ${GOPATH}/src/github.com/hyperledger/fabric-samples/first-network/crypto-config/peerOrganizations/tls.example.com/users/User1@tls.example.com/tls/client.crt
 #
 #     # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
 #     # needed to enroll and invoke new users.
