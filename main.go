@@ -10,4 +10,6 @@ func main(){
 	//createCC(sdk)
 	//
 	queryLedger(sdk)
+	//downloadBlock(sdk)
+	//parseBlock()
 }

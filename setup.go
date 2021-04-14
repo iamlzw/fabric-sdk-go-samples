@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"github.com/golang/protobuf/proto"
 	"github.com/hyperledger/fabric-sdk-go/pkg/client/channel"
 	"github.com/hyperledger/fabric-sdk-go/pkg/client/ledger"
 	mspclient "github.com/hyperledger/fabric-sdk-go/pkg/client/msp"
@@ -12,8 +13,10 @@ import (
 	"github.com/hyperledger/fabric-sdk-go/pkg/core/config"
 	packager "github.com/hyperledger/fabric-sdk-go/pkg/fab/ccpackager/gopackager"
 	"github.com/hyperledger/fabric-sdk-go/pkg/fabsdk"
-	"github.com/hyperledger/fabric-sdk-go/third_party/github.com/hyperledger/fabric/common/policydsl"
+	"github.com/hyperledger/fabric-sdk-go/third_party/github.com/hyperledger/fabric/common/cauthdsl"
 	"github.com/hyperledger/fabric/common/tools/protolator"
+	//"github.com/hyperledger/fabric/protos/utils"
+	cb "github.com/hyperledger/fabric/protos/common"
 	"io/ioutil"
 	"log"
 	"strconv"
@@ -109,7 +112,7 @@ func createCC(sdk *fabsdk.FabricSDK) {
 		fmt.Println(err)
 	}
 	// Set up chaincode policy
-	ccPolicy := policydsl.SignedByAnyMember([]string{"Org1MSP"})
+	ccPolicy := cauthdsl.SignedByAnyMember([]string{"Org1MSP"})
 	// Org resource manager will instantiate 'example_cc' on channel
 	resp, err := orgResMgmt.InstantiateCC(
 		"mychannel",
@@ -145,7 +148,7 @@ func queryLedger(sdk *fabsdk.FabricSDK){
 		if err != nil {
 			fmt.Errorf("malformed block contents: %s", err)
 		}
-		filename := "mychannel_"+strconv.FormatInt(i,10)+".json"
+		filename := "blockfiles/mychannel_"+strconv.FormatInt(i,10)+".json"
 		err = ioutil.WriteFile(filename,buf.Bytes(),0644)
 		if err != nil{
 			fmt.Println("write to file failure:",err)
@@ -168,5 +171,65 @@ func queryLedger(sdk *fabsdk.FabricSDK){
 	fmt.Println(string(endorser))
 	fmt.Println(string(signature))
 }
+
+func downloadBlock(sdk *fabsdk.FabricSDK){
+	ccp := sdk.ChannelContext("mychannel", fabsdk.WithUser("User1"),fabsdk.WithOrg("Org1"))
+
+	ledgerClient, err := ledger.New(ccp)
+
+	// Test Query Info - retrieve values before transaction
+	chainInfo, err := ledgerClient.QueryInfo()
+	if err != nil {
+		fmt.Println("QueryInfo return error: %s", err)
+	}
+	height := chainInfo.BCI.Height
+	for i := int64(0); i < int64(height); i++ {
+		block ,err := ledgerClient.QueryBlock(uint64(i))
+		if err != nil{
+			fmt.Println(err)
+		}
+		b,err := proto.Marshal(block)
+		//buf := new (bytes.Buffer)
+		//err = protolator.DeepMarshalJSON(buf, block)
+		if err != nil {
+			fmt.Errorf("malformed block contents: %s", err)
+		}
+		filename := "blockfiles/mychannel_"+strconv.FormatInt(i,10)+".block"
+		err = ioutil.WriteFile(filename,b,0644)
+		if err != nil{
+			fmt.Println("write to file failure:",err)
+		}
+	}
+}
+
+func parseBlock(){
+	file := "blockfiles/mychannel_3.block"
+	data, err := ioutil.ReadFile(file)
+	if err != nil {
+		fmt.Errorf("Could not read block")
+	}
+
+	block := &cb.Block{}
+	err = proto.Unmarshal(data, block)
+	if err != nil {
+		fmt.Errorf("error unmarshaling to block: %s", err)
+	}
+	buf := new (bytes.Buffer)
+	err = protolator.DeepMarshalJSON(buf, block)
+	if err != nil {
+		fmt.Errorf("malformed block contents: %s", err)
+	}
+
+	if err != nil {
+		fmt.Errorf("malformed block contents: %s", err)
+	}
+	filename := "mychannel_4"+".json"
+	err = ioutil.WriteFile(filename,buf.Bytes(),0644)
+	if err != nil{
+		fmt.Println("write to file failure:",err)
+	}
+}
+
+
 
 
