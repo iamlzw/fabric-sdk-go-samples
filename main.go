@@ -4,12 +4,10 @@ func main(){
 	sdk := initSDK()
 
 	//createChannel(sdk)
-
 	//joinChannel(sdk)
 	//
 	//createCC(sdk)
-	//
-	queryLedger(sdk)
-	//downloadBlock(sdk)
-	//parseBlock()
+
+	invokeChaincode(sdk)
+	queryChaincode(sdk)
 }
