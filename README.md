@@ -16,4 +16,4 @@ run
 ```bash
 go run main.go setup.go
 ```
-or just run in ide
+or run on ide
